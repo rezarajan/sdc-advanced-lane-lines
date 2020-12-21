@@ -72,9 +72,11 @@ _**Rubric Requirement**: Provide an example of a distortion-corrected image._
 With the distortion coefficients and camera matrix, the image is tranformed as shown below:
 
 **Original Distorted Image**
+
 ![Original distorted image][distorted]
 
 **Undistorted Image**
+
 ![Unistorted image][undistorted]
 
 The `cv2.undistort` method is used to perform this step.
@@ -99,16 +101,19 @@ The `color_mask` helper function has been created for color thresholding.
 Results of this thresholding are illustrated below:
 
 **Sobel Gradient Thresholding Tests**
+
 ![Sobel Gradient Thresholds][sobel]
 
 The Sobel operations indicate that the x-direction provides the most lane line filtering.
 
 **Color Thresholding**
+
 ![Color Thresholds][color_mask]
 
 The color mask filters for only white and yellow hues within defined lighting ranges. This uses the hue and lighting channels of the image converted from RGB to HLS. It does an excellent job at filtering for lane lines.
 
 **Combined Thresholds**
+
 ![Combined Thresholds][colgrad_mask]
 
 On a different image, the combined mask is shown to pick up a lot of lane line detail. Though this combined mask picks up details in the trees, this will be handled later on.
@@ -133,6 +138,7 @@ The following four points have been used to transform the image:
 Thus, using the four points the image, it is transformed using as follows:
 
 **Perspective Transform**
+
 ![Perspective Transform][perspective_transform]
 
 A helper function has been created for the perspective transform, called `warp`. This helper function is also used for the [inverse perspective warp](#inverse-perspective-transform) by passing the `inverse=True` parameter.
@@ -147,6 +153,7 @@ With the perspective transformed binary mask, a method called histogram peak ext
 In essence, this method sums the number of white pixel for each column of the binary image. The two columns with the highest sums are taken as the base of the lane. Note that this method assumes that lane lines are, for the most part, vertical.
 
 **Histogram Peak Extraction**
+
 ![Histogram Peak Extraction][histogram]
 
 The `hist_peaks` helper function has been created to perform this step.
@@ -157,6 +164,7 @@ There is now enough information to start the lane line search. The sliding windo
 This can be though of as _shifting_ the search window along the lane. Below is an illustration of this method:
 
 **Sliding Window Lane Search**
+
 ![Sliding Window Lane Search][sliding_window]
 
 The `fit_polynomial` and `find_lane_pixels` helper functions are used in conjunction to perform this task.
@@ -167,6 +175,7 @@ An alternative to the sliding window lane search is searching from prior lane bo
 An illustration of this method is shown below:
 
 **Look-Ahead Filter**
+
 ![Look-Ahead Filter][look_ahead]
 
 The `search_poly` helper function is used to perform this task.
@@ -183,6 +192,7 @@ _**Rubric Requirement**: Provide an example image of your result plotted back do
 With the lane lines found and plotted, an inverse perspective transform is used, which is the inverse of the initial transformation matrix, to transform from a top-down view to a front-facing (original) view.
 
 **Inverse Perspective Transform**
+
 ![Inverse Perspective Transform][inverse_transform]
 
 ### Video Pipeline
@@ -191,6 +201,7 @@ The lane line, along with the metrics from the `Lane()` class, are plotted onto 
 Samples of the final frame results are shown below:
 
 **Final Frame**
+
 ![Final Frame Samples][final_frame]
 
 _Notice how the pipeline performs well and is robust against shade from trees and bumps in the road._
